@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "MessageService";
+
+
+
+service Message {
+  rpc SendMessage (MessageData) returns (Reply);
+  rpc DeleteMessage (MessageId) returns (Reply);
+}
+
+message MessageId{
+	string Id = 1;
+}
+
+message MessageData {
+  string Data = 1;
+}
+
+
+message Reply {
+  string message = 1;
+}

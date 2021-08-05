@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserService";
+
+service User {
+
+  rpc GetUserInfo (UserId) returns (UserInfo);
+  rpc GetUserByName(UserName) returns (UserInfo);
+  rpc CreateUser(UserInfo) returns (CreateUserResult);
+}
+message UserId {
+  string Id = 1;
+}
+message UserInfo {
+         string Id =1;
+         string UserName=2; 
+         string PhoneNumber=3; 
+         string UsersFriends =4;
+         string UsersFriendRequests=5; 
+}
+message UserName{
+	string name =1;
+}
+message CreateUserResult{
+	string Id =1;
+         string UserName=2; 
+}
+

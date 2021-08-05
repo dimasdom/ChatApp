@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+   db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=UpLink2314124&
+    volumes: 
+      - /var/opt/mssql
+
+   chatappbackcore:
+    image: ${DOCKER_REGISTRY-}chatappbackcore
+    build:
+      context: .
+      dockerfile: ChatAppBackCore/Dockerfile
+    depends_on:
+       - db
+
+ 
+
+
+   userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    container_name: UserService
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+    depends_on:
+       - db
+
+
+   messageservice:
+    image: ${DOCKER_REGISTRY-}messageservice
+    container_name: MessageService
+    build:
+      context: .
+      dockerfile: MessageService/Dockerfile
+    depends_on:
+       - db
+
