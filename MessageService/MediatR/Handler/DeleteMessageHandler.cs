@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace MessageService.MediatR.Handler
 {
-    public class CreateMessageHandler : IRequestHandler<CreateMessageCommand, bool>
+    public class DeleteMessageHandler : IRequestHandler<DeleteMessageCommand, bool>
     {
         private readonly MassageServiceContext _context;
-        public  async Task<bool> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
+        public  async Task<bool> Handle(DeleteMessageCommand request, CancellationToken cancellationToken)
         {
-            await _context.Messages.AddAsync(request.Message);
+            var message = await _context.Messages.FindAsync(Guid.Parse(request.Id));
+            _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
             return true;
         }

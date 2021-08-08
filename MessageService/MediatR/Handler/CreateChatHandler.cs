@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MessageService.MediatR.Handler
 {
-    public class CreateMessageHandler : IRequestHandler<CreateMessageCommand, bool>
+    public class CreateChatHandler : IRequestHandler<CreateChatCommand, bool>
     {
         private readonly MassageServiceContext _context;
-        public  async Task<bool> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateChatCommand request, CancellationToken cancellationToken)
         {
-            await _context.Messages.AddAsync(request.Message);
+            await _context.Chats.AddAsync(request.Chat);
             await _context.SaveChangesAsync();
             return true;
         }
